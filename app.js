@@ -4,10 +4,10 @@ var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var logger         = require('morgan');
 var http           = require('http');
-var session        = require('express-session');
+//var session        = require('express-session');
 var network        = require('os').networkInterfaces();
-var override       = require('method-override');
-var FileStore      = require('session-file-store')(session);
+//var override       = require('method-override');
+//var FileStore      = require('session-file-store')(session);
 var routes         = require('./routes');  
 var sync           = require('./services/sync');  
 var auth           = require('./middlewares/authentication'); 
@@ -26,12 +26,12 @@ app.use('/', routes);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(override());
+app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(override());
 app.disable('x-powered-by');
 app.use(auth);
 
-app.use(session({
+/*app.use(session({
 	store: new FileStore({
 		path: 'tmp/sessions',
 		ttl: 7200,
@@ -40,7 +40,7 @@ app.use(session({
   secret: cfg.secret,
   resave: true,
   saveUninitialized: true
-}));
+}));*/
 
 var port = cfg.port;
 app.set('port', port);
