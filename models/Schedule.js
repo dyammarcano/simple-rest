@@ -1,7 +1,6 @@
 var mongoose   = require('mongoose');
-var Schema     = mongoose.Schema;
 
-var Schedule = new Schema({
+var ScheduleSchema = new mongoose.Schema({
 	title: {
 		type: String,
 		required: true
@@ -12,4 +11,4 @@ var Schedule = new Schema({
 	}
 });
 
-module.exports = mongoose.model('Schedule', Schedule);
+module.exports = mongoose.model('Schedule', ScheduleSchema);

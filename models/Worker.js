@@ -1,11 +1,21 @@
 var mongoose   = require('mongoose');
-var Schema     = mongoose.Schema;
 
-var Worker = new Schema({
-	role: {
-		type: Number,
-		required : true
-	},
+/*
+first_name
+second_name
+first_surname
+second_surname
+identification
+age
+phone
+birth_date
+title
+department
+employee_number
+works_from
+*/
+
+var WorkerSchema = new mongoose.Schema({
 	first_name: String,
 	second_name: String,
 	first_surname: String,
@@ -30,10 +40,10 @@ var Worker = new Schema({
 		required : true
 	},
 	works_from: Date,
-	register: { 
+	created: { 
 		type: Date, 
 		default: Date.now 
 	},
 });
 
-module.exports = mongoose.model('Worker', Worker);
+module.exports = mongoose.model('Worker', WorkerSchema);

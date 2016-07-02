@@ -1,51 +1,36 @@
 var cfg            = require('config.json')('./config.json');
-var express        = require('express');
-var mongoose       = require('mongoose');
-var bodyParser     = require('body-parser');
-var logger         = require('morgan');
-var http           = require('http');
-//var session        = require('express-session');
+var Express        = require('express');
+var Mongoose       = require('mongoose');
+var BodyParser     = require('body-parser');
+var Logger         = require('morgan');
+var Http           = require('http');
 var network        = require('os').networkInterfaces();
-//var override       = require('method-override');
-//var FileStore      = require('session-file-store')(session);
-var routes         = require('./routes');  
-var sync           = require('./services/sync');  
-var auth           = require('./middlewares/authentication'); 
+var Routes         = require('./routes'); 
+var Secure         = require('./routes/api');  
+var Sync           = require('./services/sync');  
 
 sync.service(network.eth0[0], cfg);
 
-mongoose.connect(cfg.db.url + cfg.db.name);
+Mongoose.connect(cfg.db.url + cfg.db.name);
 
-mongoose.connection.once('connected', function() {
+Mongoose.connection.once('connected', function() {
 	console.log("Connected to database");
 });
 
-var app = express();
+var app = Express();
 
-app.use('/', routes);
+app.use('/', Routes);
+app.use('/api', Secure);
 
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(override());
+app.use(Logger('dev'));
+app.use(BodyParser.json());
+app.use(BodyParser.urlencoded({ extended: true }));
 app.disable('x-powered-by');
-app.use(auth);
-
-/*app.use(session({
-	store: new FileStore({
-		path: 'tmp/sessions',
-		ttl: 7200,
-		encrypt: true
-	}),
-  secret: cfg.secret,
-  resave: true,
-  saveUninitialized: true
-}));*/
 
 var port = cfg.port;
 app.set('port', port);
 
-var server = http.createServer(app);
+var server = Http.createServer(app);
 server.listen(port);
 
 console.log("Rest Server API listening on localhost:%s", port);

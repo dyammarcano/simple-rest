@@ -1,7 +1,6 @@
 var mongoose   = require('mongoose');
-var Schema     = mongoose.Schema;
 
-var Security = new Schema({
+var SecuritySchema = new mongoose.Schema({
   token: {
     type: String,
     unique: true,
@@ -14,4 +13,4 @@ var Security = new Schema({
   },
 });
 
-module.exports = mongoose.model('Security', Security);
+module.exports = mongoose.model('Security', SecuritySchema);

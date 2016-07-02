@@ -9,6 +9,11 @@
 	"info":"rest api hotel eurobuilding",
 	"secret":"bf0a31b94875704e24d930f7be8c98324d930f7be8c98",
 	"api": {
-		"online":true
+		"online":true,
+		"api": "v1", 
+		"auth": "/auth", 
+		"version": "0.0.1",
+		"private": true
 	}
 }
+

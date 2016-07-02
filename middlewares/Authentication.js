@@ -1,9 +1,6 @@
 module.exports = function (req, res, next) {
 
-	if (req.path === '/auth') {
-		console.log("unsecure");
-		next();
-	} else if (req.headers.token === "token" || req.path === '/auth') {
+	if (req.headers.token) {
 		console.log("access");
 		next();
 	} else {
