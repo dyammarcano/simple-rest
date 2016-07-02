@@ -1,0 +1,14 @@
+{
+	"db": {
+		"name":"eurobuilding",
+		"url":"mongodb://localhost/"
+	},
+	"port": 3000,
+	"interval": 3600000,
+	"server":"http://api.node05.comxa.com",
+	"info":"rest api hotel eurobuilding",
+	"secret":"bf0a31b94875704e24d930f7be8c98324d930f7be8c98",
+	"api": {
+		"online":true
+	}
+}

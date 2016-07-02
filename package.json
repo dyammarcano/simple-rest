@@ -1,0 +1,28 @@
+{
+  "name": "basic-rest-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "sync": "node sync.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "config.json": "0.0.4",
+    "crypt": "0.0.1",
+    "express": "^4.14.0",
+    "express-ipfilter": "0.0.25",
+    "express-session": "^1.13.0",
+    "js-crc": "^0.1.0",
+    "method-override": "^2.3.6",
+    "moment": "^2.13.0",
+    "mongoose": "^4.5.3",
+    "morgan": "^1.7.0",
+    "nexe": "^1.1.2",
+    "request": "^2.72.0",
+    "session-file-store": "^0.2.0"
+  }
+}
