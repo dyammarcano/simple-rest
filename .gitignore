@@ -3,6 +3,7 @@
 ################################################
 
 node_modules
+adminMongo
 .git
 .env
 *.log

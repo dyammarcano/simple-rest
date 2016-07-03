@@ -1,12 +1,14 @@
 var cfg        = require('config.json')('../config.json');
 var Mongoose   = require('mongoose');
 var crypto     = require('crypto');
+var moment     = require('moment');
 var jwt        = require('jsonwebtoken');
+
+require('./db');
 
 var AccountSchema = new Mongoose.Schema({
   role: {
-    type: Number,
-    required : true
+    type: Number
   },
   first_name: String,
   second_name: String,
@@ -55,14 +57,17 @@ var AccountSchema = new Mongoose.Schema({
   },
 });
 
-AccountSchema.methods.setPassword = function(raw_code){
+AccountSchema.methods.setPassword = function(password){
   this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(raw_code, this.salt, 1000, 64).toString('hex');
+  // error buffer ???
+  //this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+  this.hash = password;
 };
 
-AccountSchema.methods.validPassword = function(raw_code) {
-  var hash = crypto.pbkdf2Sync(raw_code, this.salt, 1000, 64).toString('hex');
-  return this.hash === hash;
+AccountSchema.methods.validPassword = function(password) {
+  //var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+  //return this.hash === hash;
+  return password === this.hash;
 };
 
 AccountSchema.methods.addRole = function(code) {
@@ -70,14 +75,11 @@ AccountSchema.methods.addRole = function(code) {
 };
 
 AccountSchema.methods.generateJwt = function() {
-  var expiry = new Date();
-  expiry.setDate(expiry.getDate() + 7);
-
   return jwt.sign({
     _id: this._id,
     email: this.email,
-    exp: parseInt(expiry.getTime() / 1000),
-  }, cfg.secret);
+    exp: moment().add(7, 'days').valueOf(),
+  }, "bf0a31b94875704e24d930f7be8c98324d930f7be8c98");
 };
 
 module.exports = Mongoose.model('Account', AccountSchema);

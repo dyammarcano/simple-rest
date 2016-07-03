@@ -1,7 +1,7 @@
 var cfg        = require('config.json')('../config.json');
 var mongoose   = require('mongoose');
 
-var dbname = cfg.db.url + cfg.db.name;
+var dbname = "mongodb://localhost/hotel";
 
 mongoose.connect(dbname);
 
@@ -17,3 +17,4 @@ mongoose.connection.on('error', function(err) {
 mongoose.connection.on('disconnected', function() {
   console.log('Mongoose disconnected');
 });
+

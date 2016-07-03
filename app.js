@@ -6,11 +6,17 @@ var network        = require('os').networkInterfaces();
 var routes         = require('./routes'); 
 var passport       = require('./config/passport');
 var sync           = require('./services/sync');
+var jwt            = require('express-jwt');
 
 sync.service(network.eth0[0], cfg);
 
-
 var app = Express();
+
+var auth = jwt({
+	secret: "bf0a31b94875704e24d930f7be8c98324d930f7be8c98"
+}).unless({ path: ['/api/login', '/api/register', '/api/status'] });
+
+app.use(auth);
 
 app.use(morgan('dev'));
 app.use(passport.initialize());

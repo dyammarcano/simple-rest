@@ -1,20 +1,19 @@
 {
-	"db": {
-		"name":"eurobuilding",
-		"url":"mongodb://localhost/"
-	},
-	"port": 3000,
-	"interval": 3600000,
-	"server":"http://api.node05.comxa.com",
-	"info":"rest api hotel eurobuilding",
-	"secret":"bf0a31b94875704e24d930f7be8c98324d930f7be8c98",
-	"api": {
-		"online":true,
-		"api": "v1", 
-		"auth": "/login", 
-		"root": "/api", 
-		"version": "0.0.1",
-		"private": true
-	}
+  "db": {
+    "name":"eurobuilding",
+    "url":"mongodb://localhost/"
+  },
+  "port": 3000,
+  "interval": 3600000,
+  "server":"http://api.node05.comxa.com",
+  "info":"rest api hotel eurobuilding",
+  "secret":"bf0a31b94875704e24d930f7be8c98324d930f7be8c98",
+  "api": {
+    "online":true,
+    "api": "v1", 
+    "auth": "/api/login",
+    "version": "0.0.1",
+    "private": true
+  }
 }
 

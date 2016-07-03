@@ -8,16 +8,20 @@ var sendJSONresponse = function(res, status, content) {
 
 module.exports.register = function(req, res) {
 
-  if(req.query.length > 10) {
+  if(Object.keys(req.query).length > 10) {
 
     var data = req.query;
 
     var user = new User();
 
     // check if user have access to the system or only a worker
-    if (data.role !== 0) {
+    if (data.role !== undefined) {
       user.addRole(data.role);         // role admin
       user.setPassword(data.password); // password hash 
+
+      console.log("admin user valid: " + user.validPassword(data.password));
+    } else {
+      console.log("normal user");
     }
 
     user.first_name      = data.first_name;
@@ -35,17 +39,18 @@ module.exports.register = function(req, res) {
     user.works_from      = data.works_from;
 
     user.save(function(err) {
-      sendJSONresponse(res, 200, { "saved" : "success" });
+      var token = user.generateJwt();
+      sendJSONresponse(res, 200, { "token" : token });
     });
   } else {
-    sendJSONresponse(res, 400, { "error": "All fields required" });
+    sendJSONresponse(res, 400, { "error": "All fields required fileds: " + Object.keys(req.query).length });
     return;
   }
 };
 
 module.exports.login = function(req, res) {
 
-  if(req.query.length > 1) {
+  if(Object.keys(req.query).length > 1) {
     
     var data = req.query;
 
