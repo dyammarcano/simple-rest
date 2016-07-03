@@ -9,7 +9,8 @@ var passport       = require('./config/passport');
 var sync           = require('./services/sync');
 var jwt            = require('express-jwt');
 
-require('./models/db');
+
+require('./config/db');
 
 sync.service(network.eth0[0], cfg);
 

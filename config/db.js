@@ -1,6 +1,7 @@
 var cfg        = require('config.json')('./config.json');
 var mongoose   = require('mongoose');
 
+
 var dbname = cfg.db.url + cfg.db.name;
 
 mongoose.connect(dbname);

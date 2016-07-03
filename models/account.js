@@ -4,7 +4,6 @@ var crypto     = require('crypto');
 var moment     = require('moment');
 var jwt        = require('jsonwebtoken');
 
-require('./db');
 
 var AccountSchema = new Mongoose.Schema({
   role: {
@@ -14,7 +13,7 @@ var AccountSchema = new Mongoose.Schema({
   second_name: String,
   first_surname: String,
   second_surname: String,
-  hash: {
+  password: {
   	type: String,
     unique: true,
     required : true
@@ -57,17 +56,17 @@ var AccountSchema = new Mongoose.Schema({
   },
 });
 
-AccountSchema.methods.setPassword = function(password){
+AccountSchema.methods.setPassword = function(password) {
   this.salt = crypto.randomBytes(16).toString('hex');
   // error buffer ???
   //this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-  this.hash = password;
+  this.password = password;
 };
 
 AccountSchema.methods.validPassword = function(password) {
   //var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
   //return this.hash === hash;
-  return password === this.hash;
+  return password === this.password;
 };
 
 AccountSchema.methods.addRole = function(code) {

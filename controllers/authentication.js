@@ -15,7 +15,7 @@ module.exports.register = function(req, res) {
     var user = new User();
 
     // check if user have access to the system or only a worker
-    if (data.role !== undefined) {
+    if (data.password !== undefined) {
       user.addRole(data.role);         // role admin
       user.setPassword(data.password); // password hash 
 
@@ -32,13 +32,17 @@ module.exports.register = function(req, res) {
     user.email           = data.email;
     user.age             = data.age;
     user.phone           = data.phone;
-    user.birth_date      = data.birth_date;
+    user.birth_date      = Date(data.birth_date);
     user.title           = data.title;
     user.department      = data.department;
     user.employee_number = data.employee_number;
     user.works_from      = data.works_from;
 
     user.save(function(err) {
+      if (err) {
+        sendJSONresponse(res, 200, { "error" : err });
+        throw err;
+      }
       var token = user.generateJwt();
       sendJSONresponse(res, 200, { "token" : token });
     });
