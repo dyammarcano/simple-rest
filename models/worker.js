@@ -1,20 +1,5 @@
 var mongoose   = require('mongoose');
 
-/*
-first_name
-second_name
-first_surname
-second_surname
-identification
-age
-phone
-birth_date
-title
-department
-employee_number
-works_from
-*/
-
 var WorkerSchema = new mongoose.Schema({
 	first_name: String,
 	second_name: String,

@@ -1,10 +1,10 @@
 var mongoose   = require('mongoose');
-var Account    = require('../models/Account');
-var Session    = require('../models/Session');
+var account    = require('../models/account');
+var session    = require('../models/session');
 
 module.exports = function (data) {
 
-	Account.findOne({ username: data.username }, function (err, user) {
+	account.findOne({ username: data.username }, function (err, user) {
 		if (err) {
 			throw err;
 		}
@@ -15,7 +15,7 @@ module.exports = function (data) {
 			if (err) {
 				throw err;
 			} else {
-				token = Session.generateToken();
+				token = session.generateToken();
 				var sess = new Session({ token: token });
 			}
 			return token;

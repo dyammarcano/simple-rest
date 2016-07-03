@@ -24,6 +24,8 @@
     "mongoose": "^4.5.3",
     "morgan": "^1.7.0",
     "nexe": "^1.1.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "randomstring": "^1.1.5",
     "request": "^2.72.0",
     "session-file-store": "^0.2.0"

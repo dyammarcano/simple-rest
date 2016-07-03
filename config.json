@@ -11,7 +11,8 @@
 	"api": {
 		"online":true,
 		"api": "v1", 
-		"auth": "/auth", 
+		"auth": "/login", 
+		"root": "/api", 
 		"version": "0.0.1",
 		"private": true
 	}

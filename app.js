@@ -1,36 +1,27 @@
 var cfg            = require('config.json')('./config.json');
 var Express        = require('express');
-var Mongoose       = require('mongoose');
-var BodyParser     = require('body-parser');
-var Logger         = require('morgan');
-var Http           = require('http');
+var http           = require('http');
+var morgan         = require('morgan');
 var network        = require('os').networkInterfaces();
-var Routes         = require('./routes'); 
-var Secure         = require('./routes/api');  
-var Sync           = require('./services/sync');  
+var routes         = require('./routes'); 
+var passport       = require('./config/passport');
+var sync           = require('./services/sync');
 
 sync.service(network.eth0[0], cfg);
 
-Mongoose.connect(cfg.db.url + cfg.db.name);
-
-Mongoose.connection.once('connected', function() {
-	console.log("Connected to database");
-});
 
 var app = Express();
 
-app.use('/', Routes);
-app.use('/api', Secure);
-
-app.use(Logger('dev'));
-app.use(BodyParser.json());
-app.use(BodyParser.urlencoded({ extended: true }));
+app.use(morgan('dev'));
+app.use(passport.initialize());
 app.disable('x-powered-by');
+
+app.use('/api', routes);
 
 var port = cfg.port;
 app.set('port', port);
 
-var server = Http.createServer(app);
+var server = http.createServer(app);
 server.listen(port);
 
 console.log("Rest Server API listening on localhost:%s", port);
