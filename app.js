@@ -14,7 +14,7 @@ var app = Express();
 
 var auth = jwt({
 	secret: "bf0a31b94875704e24d930f7be8c98324d930f7be8c98"
-}).unless({ path: ['/api/login', '/api/register', '/api/status'] });
+}).unless({ path: ['/api/login', '/api/register'] });
 
 app.use(auth);
 

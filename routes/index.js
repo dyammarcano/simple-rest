@@ -7,7 +7,7 @@ router.post('/register', validate.register);
 
 router.post('/login', validate.login);
 
-router.get('/profile', profile.home);
+router.get('/profile', profile.profile);
 
 router.get('/status', profile.status);
 

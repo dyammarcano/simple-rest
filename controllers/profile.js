@@ -6,11 +6,12 @@ var sendJSONresponse = function(res, status, content) {
   res.json(content);
 };
 
-module.exports.home = function(req, res) {
-  sendJSONresponse(res, 200, { home: 'path'});
+module.exports.profile = function(req, res) {
+  sendJSONresponse(res, 200, { welcome: req.user.email });
 };
 
 module.exports.status = function(req, res) {
+  //console.log("user: " + JSON.stringify(req.user));
   sendJSONresponse(res, 200, cfg.api);
 };
 
