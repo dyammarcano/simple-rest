@@ -14,14 +14,12 @@ var AccountSchema = new Mongoose.Schema({
   first_surname: String,
   second_surname: String,
   password: {
-  	type: String,
-    unique: true,
-    required : true
+    type: String,
+    sparse: true
   },
   salt: {
     type: String,
-    unique: true,
-    required : true
+    sparse: true
   },
   identification: {
     type: Number,
@@ -33,15 +31,11 @@ var AccountSchema = new Mongoose.Schema({
     unique: true,
     required : true
   },
-  age: { 
-    type: Number,
-    min: 18,
-    max: 65
-  },
-  phone:  Number,
-  birth_date:  Date,
-  title:  String,
-  department:  {
+  age: Number,
+  phone: String,
+  birth_date: String,
+  title: String,
+  department: {
     type: String,
     required : true
   },
@@ -49,24 +43,20 @@ var AccountSchema = new Mongoose.Schema({
     type: Number,
     required : true
   },
-  works_from: Date,
+  works_from: String,
   created: { 
     type: Date, 
     default: Date.now() 
   },
 });
 
-AccountSchema.methods.setPassword = function(password) {
+AccountSchema.methods.setPassword = function(raw_password) {
   this.salt = crypto.randomBytes(16).toString('hex');
-  // error buffer ???
-  //this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-  this.password = password;
+  this.password = crypto.pbkdf2Sync(raw_password, this.salt, 1000, 64).toString('hex');
 };
 
-AccountSchema.methods.validPassword = function(password) {
-  //var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
-  //return this.hash === hash;
-  return password === this.password;
+AccountSchema.methods.validPassword = function(raw_password) {
+  return this.password === crypto.pbkdf2Sync(raw_password, this.salt, 1000, 64).toString('hex');
 };
 
 AccountSchema.methods.addRole = function(code) {

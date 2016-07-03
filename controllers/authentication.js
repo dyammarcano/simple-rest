@@ -40,11 +40,10 @@ module.exports.register = function(req, res) {
 
     user.save(function(err) {
       if (err) {
-        sendJSONresponse(res, 200, { "error" : err });
+        sendJSONresponse(res, 400, { "error" : err });
         throw err;
       }
-      var token = user.generateJwt();
-      sendJSONresponse(res, 200, { "token" : token });
+      sendJSONresponse(res, 200, { "token" : user.generateJwt() });
     });
   } else {
     sendJSONresponse(res, 400, { "error": "All fields required fileds: " + Object.keys(req.query).length });
@@ -58,24 +57,21 @@ module.exports.login = function(req, res) {
     
     var data = req.query;
 
-    var user = new User();
-  
-    passport.authenticate('local', function(err, user, info) {
-
-      // If passport throws/catches an error
+    User.findOne({ email: data.email }, function(err, user) {
       if (err) {
-        sendJSONresponse(res, 404, { "error" : err });
-        return;
+        sendJSONresponse(res, 400, { "error" : err });
+        throw err;
       }
-      
-      if(user) {
-        // If a user is found
-        var token = user.generateJwt();
-        sendJSONresponse(res, 200, { "token" : token });
+
+      if (user.validPassword(data.password)) {
+        sendJSONresponse(res, 200, { "token" : user.generateJwt() });
+        return;
       } else {
-        // If user is not found
-        sendJSONresponse(res, 401, info);
+        sendJSONresponse(res, 400, { "authentication" : "error" });
       }
     });
+  } else {
+    sendJSONresponse(res, 400, { "error": "All fields required fileds: " + Object.keys(req.query).length });
+    return;
   }
 };
