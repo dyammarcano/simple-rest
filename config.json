@@ -1,6 +1,6 @@
 {
   "db": {
-    "name":"eurobuilding",
+    "name":"hotel",
     "url":"mongodb://localhost/"
   },
   "port": 3000,

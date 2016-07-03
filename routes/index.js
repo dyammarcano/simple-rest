@@ -11,4 +11,8 @@ router.get('/profile', profile.profile);
 
 router.get('/status', profile.status);
 
+//router.get('/user', profile.user);
+
+//router.get('/admin', profile.admin);
+
 module.exports = router;

@@ -1,7 +1,7 @@
-var cfg        = require('config.json')('../config.json');
+var cfg        = require('config.json')('./config.json');
 var mongoose   = require('mongoose');
 
-var dbname = "mongodb://localhost/hotel";
+var dbname = cfg.db.url + cfg.db.name;
 
 mongoose.connect(dbname);
 

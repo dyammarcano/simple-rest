@@ -76,8 +76,10 @@ AccountSchema.methods.addRole = function(code) {
 
 AccountSchema.methods.generateJwt = function() {
   return jwt.sign({
-    _id: this._id,
+    id: this._id,
     email: this.email,
+    department: this.department,
+    role: this.role,
     exp: moment().add(7, 'days').valueOf(),
   }, "bf0a31b94875704e24d930f7be8c98324d930f7be8c98");
 };
