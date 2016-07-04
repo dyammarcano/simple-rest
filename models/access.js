@@ -18,7 +18,7 @@ var AccessSchema = new mongoose.Schema({
 });
 
 AccessSchema.methods.grantAccess = function() {
-  this.time = moment().format("dddd, MMMM Do YYYY, HH:mm:ss");
+  this.time = moment().locale('es').format("dddd, MMMM Do YYYY, HH:mm:ss");
   this.ingress = !this.ingress;
 };
 

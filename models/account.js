@@ -77,7 +77,7 @@ var AccountSchema = new mongoose.Schema({
   },
   created: { 
     type: String, 
-    default: moment().format("dddd, MMMM Do YYYY, HH:mm:ss")
+    default: moment().locale('es').format("dddd, MMMM Do YYYY, HH:mm:ss")
   },
 });
 
