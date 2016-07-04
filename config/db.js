@@ -1,5 +1,5 @@
-var cfg        = require('config.json')('./config.json');
-var mongoose   = require('mongoose');
+var cfg            = require('.'); 
+var mongoose       = require('mongoose');
 
 
 var dbname = cfg.db.url + cfg.db.name;

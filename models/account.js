@@ -1,11 +1,11 @@
-var cfg        = require('config.json')('../config.json');
-var Mongoose   = require('mongoose');
-var crypto     = require('crypto');
-var moment     = require('moment');
-var jwt        = require('jsonwebtoken');
+var cfg            = require('../config'); 
+var mongoose       = require('mongoose');
+var crypto         = require('crypto');
+var moment         = require('moment');
+var jwt            = require('jsonwebtoken');
 
 
-var AccountSchema = new Mongoose.Schema({
+var AccountSchema = new mongoose.Schema({
   role: {
     type: Number
   },
@@ -44,6 +44,10 @@ var AccountSchema = new Mongoose.Schema({
     required : true
   },
   works_from: String,
+  status: { 
+    type: String, 
+    default: 'active' 
+  },
   created: { 
     type: Date, 
     default: Date.now() 
@@ -67,10 +71,13 @@ AccountSchema.methods.generateJwt = function() {
   return jwt.sign({
     id: this._id,
     email: this.email,
+    first_name: this.first_name,
+    first_surname: this.first_surname,
     department: this.department,
     role: this.role,
+    status: this.status,
     exp: moment().add(7, 'days').valueOf(),
-  }, "bf0a31b94875704e24d930f7be8c98324d930f7be8c98");
+  }, cfg.secret);
 };
 
-module.exports = Mongoose.model('Account', AccountSchema);
+module.exports = mongoose.model('Account', AccountSchema);

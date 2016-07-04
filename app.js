@@ -1,24 +1,20 @@
-var cfg            = require('config.json')('./config.json');
-var Express        = require('express');
+var express        = require('express');
+var jwt            = require('express-jwt');
 var http           = require('http');
 var morgan         = require('morgan');
-var network        = require('os').networkInterfaces();
 var routes         = require('./routes'); 
-var local         = require('./routes/local'); 
+var cfg            = require('./config'); 
+var local          = require('./routes/local'); 
 var passport       = require('./config/passport');
 var sync           = require('./services/sync');
-var jwt            = require('express-jwt');
-
 
 require('./config/db');
 
-sync.service(network.eth0[0], cfg);
-
-var app = Express();
+var app = express();
 
 app.use(jwt({
-	secret: "bf0a31b94875704e24d930f7be8c98324d930f7be8c98"
-}).unless({ path: ['/api/login', '/api/register', '/system'] }));
+	secret: cfg.secret
+}).unless({ path: ['/api/login', '/api/register', '/system', '/api/status'] }));
 
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {

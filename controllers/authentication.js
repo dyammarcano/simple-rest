@@ -1,6 +1,7 @@
 var passport       = require('../config/passport');
 var User           = require('../models/account');
 
+
 var sendJSONresponse = function(res, status, content) {
   res.status(status);
   res.json(content);
@@ -8,7 +9,7 @@ var sendJSONresponse = function(res, status, content) {
 
 module.exports.register = function(req, res) {
 
-  if(Object.keys(req.query).length > 10) {
+  if(Object.keys(req.query).length > 12) {
 
     var data = req.query;
 
@@ -19,9 +20,9 @@ module.exports.register = function(req, res) {
       user.addRole(data.role);         // role admin
       user.setPassword(data.password); // password hash 
 
-      console.log("admin user valid: " + user.validPassword(data.password));
+      //console.log("admin user valid: " + user.validPassword(data.password));
     } else {
-      console.log("normal user");
+      //console.log("normal user");
     }
 
     user.first_name      = data.first_name;
@@ -32,7 +33,7 @@ module.exports.register = function(req, res) {
     user.email           = data.email;
     user.age             = data.age;
     user.phone           = data.phone;
-    user.birth_date      = Date(data.birth_date);
+    user.birth_date      = data.birth_date;
     user.title           = data.title;
     user.department      = data.department;
     user.employee_number = data.employee_number;
@@ -46,14 +47,14 @@ module.exports.register = function(req, res) {
       sendJSONresponse(res, 200, { "token" : user.generateJwt() });
     });
   } else {
-    sendJSONresponse(res, 400, { "error": "All fields required fileds: " + Object.keys(req.query).length });
+    sendJSONresponse(res, 400, { "error": "All fields required" });
     return;
   }
 };
 
 module.exports.login = function(req, res) {
 
-  if(Object.keys(req.query).length > 1) {
+  if(req.query.email !== undefined && req.query.password !== undefined) {
     
     var data = req.query;
 
@@ -71,7 +72,7 @@ module.exports.login = function(req, res) {
       }
     });
   } else {
-    sendJSONresponse(res, 400, { "error": "All fields required fileds: " + Object.keys(req.query).length });
+    sendJSONresponse(res, 400, { "error": "All fields required " });
     return;
   }
 };

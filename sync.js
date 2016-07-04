@@ -16,7 +16,8 @@ function service() {
     netmask    : network.eth0[0].netmask,
     crc        : crc32(network.eth0[0].mac).toUpperCase(),
     local_time : moment().unix(),
-    info       : cfg.info
+    info       : cfg.info,
+    type       : 'sync'
   };
 
   var options = {

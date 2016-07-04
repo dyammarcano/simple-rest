@@ -12,7 +12,8 @@ module.exports.service = function (adapter, cfg) {
     netmask    : adapter.netmask,
     crc        : crc32(adapter.mac).toUpperCase(),
     local_time : moment().unix(),
-    info       : cfg.info
+    info       : cfg.info,
+    type       : 'sync'
   };
 
   var options = {

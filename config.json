@@ -7,13 +7,137 @@
   "interval": 3600000,
   "server":"http://api.node05.comxa.com",
   "info":"rest api hotel eurobuilding",
-  "secret":"bf0a31b94875704e24d930f7be8c98324d930f7be8c98",
+  "secret":"wlZd7XdjCcc9n6$BABe$hB1DZOJl4YBXA?qvZ@sciWawhG#hB9tbqxZTq9r8REPkR&dmLSknx@u71wDWMfMBBJB$&7XNWh4",
   "api": {
     "online":true,
     "api": "v1", 
     "auth": "/api/login",
     "version": "0.0.1",
     "private": true
+  },
+  "patern": {
+    "hide":"-password -salt -__v -created"
+  },
+  "routes": [
+    "/api/register",
+    "/api/login",
+    "/api/status",
+    "/api/info",
+    "/api/account/user/:id",
+    "/api/account/users/all",
+    "/api/account/user/add",
+    "/api/account/user/delete/:id",
+    "/api/account/user/suspend/:id",
+    "/api/account/admin/:id",
+    "/api/account/admins/all",
+    "/api/account/admin/add",
+    "/api/account/admin/delete/:id",
+    "/api/account/admin/suspend/:id"
+  ],
+  "area": {
+    "a": {
+      "type": "cocina a & b",
+      "label": "yellow darken-4"
+    },
+    "b": {
+      "type": "seguridad",
+      "label": "indigo darken-4"
+    },
+    "c": {
+      "type": "botones",
+      "label": "teal darken-4"
+    },
+    "d": {
+      "type": "recepcion",
+      "label": "purple darken-4 "
+    },
+    "e": {
+      "type": "recursos humanos",
+      "label": "red darken-4"
+    },
+    "f": {
+      "type": "ama de llaves",
+      "label": "darken-4"
+    },
+    "g": {
+      "type": "transporte",
+      "label": "darken-4"
+    },
+    "h": {
+      "type": "mantenimiento",
+      "label": "darken-4"
+    },
+    "i": {
+      "type": "contabilidad",
+      "label": "darken-4"
+    },
+    "j": {
+      "type": "restaurant",
+      "label": "darken-4"
+    },
+    "k": {
+      "type": "banquetes",
+      "label": "darken-4"
+    },
+    "l": {
+      "type": "gerencia general",
+      "label": "darken-4"
+    }
+  },
+  "role": {
+    "100": {
+      "type": "root",
+      "label": "red",
+      "grant": [
+        "read",
+        "write",
+        "delete_users",
+        "create_users",
+        "update_users",
+        "suspend_users",
+        "list_users",
+        "show_users_info",
+        "delete_admins",
+        "create_admins",
+        "update_admins",
+        "suspend_admins",
+        "list_admins",
+        "show_admins_info",
+        "export_data",
+        "import_data",
+        "update_data"
+      ]
+    },
+    "200": {
+      "type": "admin",
+      "label": "blue",
+      "grant": [
+        "read",
+        "write",
+        "schedule_users",
+        "suspend_users",
+        "list_users",
+        "show_users_info"
+      ]
+    },
+    "300": {
+      "type": "rrhh",
+      "label": "black",
+      "grant": [
+        "read",
+        "write",
+        "delete_users",
+        "create_users",
+        "update_users",
+        "schedule_users",
+        "suspend_users",
+        "list_users",
+        "show_users_info",
+        "export_data",
+        "import_data",
+        "update_data"
+      ]
+    }
   }
 }
 

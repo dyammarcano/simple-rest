@@ -1,18 +1,18 @@
-var cfg        = require('config.json')('./config.json');
-var User       = require('../models/account');
+var cfg            = require('../config'); 
+var User           = require('../models/account');
+var Schedule       = require('../models/schedule');
+var Access         = require('../models/fam');
+
 
 var sendJSONresponse = function(res, status, content) {
   res.status(status);
   res.json(content);
 };
 
-module.exports.profile = function(req, res) {
-  sendJSONresponse(res, 200, { welcome: req.user.email });
-};
-
 module.exports.status = function(req, res) {
   //console.log("user: " + JSON.stringify(req.user));
-  sendJSONresponse(res, 200, cfg.api);
+  //sendJSONresponse(res, 200, cfg.api);
+  sendJSONresponse(res, 200, { welcome: req.user.email });
 };
 
 module.exports.list = function(req, res) {
