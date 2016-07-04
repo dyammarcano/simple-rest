@@ -19,7 +19,6 @@
     "hide":"-password -salt -__v -created"
   },
   "routes": [
-    "/api/register",
     "/api/login",
     "/api/status",
     "/api/info",

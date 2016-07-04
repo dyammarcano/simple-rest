@@ -4,6 +4,6 @@
         "script"     : "./sync.js",
         "instances"  : "1",
         "exec_mode"  : "cluster",
-        "watch"      : true
+        "watch"      : false
     }]
 }
