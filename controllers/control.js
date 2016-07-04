@@ -8,10 +8,11 @@ var send = function(res, status, content) {
 
 var roles = function(req, res) {
 
-  if (req.user !== undefined && req.user.role === 200) {
+  if (req.user.role === 200) {
     return send(res, 401, { access: false });
   }
 };
+
 
 module.exports.profile = function(req, res) {
 
@@ -32,6 +33,7 @@ module.exports.profile = function(req, res) {
     });
   }
 };
+
 
 module.exports.allAdmin = function(req, res) {
 
@@ -56,6 +58,7 @@ module.exports.allAdmin = function(req, res) {
   }
 };
 
+
 module.exports.allUser = function(req, res) {
 
   if (req.user.role !== 200) {
@@ -76,6 +79,7 @@ module.exports.allUser = function(req, res) {
     });
   }
 };
+
 
 module.exports.addAdmin = function(req, res) {
 
@@ -99,6 +103,7 @@ module.exports.addAdmin = function(req, res) {
   }
 };
 
+
 module.exports.addUser = function(req, res) {
 
   roles(req, res);
@@ -121,23 +126,38 @@ module.exports.addUser = function(req, res) {
   }
 };
 
+
 module.exports.update = function(req, res) {
 
   roles(req, res);
 
-  User.find({}, cfg.patern.hide, function (err, user) {
+  User.findByIdAndUpdate(req.query.id, req.query.account, function (err, user) {
     if (err) {
       throw err;
     }
     send(res, 200, user);
   });
 };
+
 
 module.exports.delete = function(req, res) {
 
   roles(req, res);
 
-  User.find({}, cfg.patern.hide, function (err, user) {
+  User.findByIdAndRemove(req.query.id, function (err) {
+    if (err) {
+      throw err;
+    }
+    send(res, 200, { "remove": true });
+  });
+};
+
+
+module.exports.suspend = function(req, res) {
+
+  roles(req, res);
+
+  User.findByIdAndUpdate(req.query.id, { status: 'suspend' }, function (err, user) {
     if (err) {
       throw err;
     }
@@ -145,11 +165,11 @@ module.exports.delete = function(req, res) {
   });
 };
 
-module.exports.suspend = function(req, res) {
+module.exports.active = function(req, res) {
 
   roles(req, res);
-  
-  User.find({}, cfg.patern.hide, function (err, user) {
+
+  User.findByIdAndUpdate(req.query.id, { status: 'active' }, function (err, user) {
     if (err) {
       throw err;
     }

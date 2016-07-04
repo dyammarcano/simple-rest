@@ -25,13 +25,15 @@
     "/api/account/user/:id*?",
     "/api/account/users/all",
     "/api/account/user/add",
-    "/api/account/user/delete/:id",
+    "/api/account/user/update/:id",
     "/api/account/user/suspend/:id",
+    "/api/account/user/remove/:id",
     "/api/account/admin/:id*?",
     "/api/account/admins/all",
     "/api/account/admin/add",
-    "/api/account/admin/delete/:id",
-    "/api/account/admin/suspend/:id"
+    "/api/account/admin/update/:id",
+    "/api/account/admin/suspend/:id",
+    "/api/account/admin/remove/:id"
   ],
   "area": {
     "a": {
@@ -90,13 +92,13 @@
       "grant": [
         "read",
         "write",
-        "delete_users",
+        "remove_users",
         "create_users",
         "update_users",
         "suspend_users",
         "list_users",
         "show_users_info",
-        "delete_admins",
+        "remove_admins",
         "create_admins",
         "update_admins",
         "suspend_admins",
@@ -125,7 +127,7 @@
       "grant": [
         "read",
         "write",
-        "delete_users",
+        "remove_users",
         "create_users",
         "update_users",
         "schedule_users",

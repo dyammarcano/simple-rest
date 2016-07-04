@@ -13,7 +13,7 @@ var app = express();
 
 app.use(jwt({
 	secret: cfg.secret
-}).unless({ path: ['/api/login', '/api/register', '/system', '/api/status'] }));
+}).unless({ path: ['/api/login', '/system', '/api/status'] }));
 
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {

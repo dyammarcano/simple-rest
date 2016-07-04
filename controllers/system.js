@@ -14,7 +14,6 @@ module.exports.login = function(req, res) {
     User.findOne({ email: req.query.email }, function(err, account) {
       if (err) {
         send(res, 400, { "errors" : true });
-        throw err;
       }
 
       if (!account) {
