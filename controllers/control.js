@@ -35,6 +35,8 @@ module.exports.profile = function(req, res) {
 
 module.exports.allAdmin = function(req, res) {
 
+  roles(req, res);
+
   if (req.user.role !== 200) {
     
     User.find({ _id: { $ne: req.user.id }, password: { $exists: true } }, cfg.patern.hide, function (err, account) {
@@ -79,32 +81,44 @@ module.exports.addAdmin = function(req, res) {
 
   roles(req, res);
 
-  var obj = new User();
+  if(Object.keys(req.query).length >= 14) {
 
-  obj.generateAdmin(req.query);
+    var obj = new User();
 
-  obj.save(function (err) {
-    if (err) {
-      send(res, 400, { "exist" : true });
-    }
-    send(res, 200, { "saved" : true });
-  });
+    obj.generateAdmin(req.query);
+
+    obj.save(function (err) {
+      if (err) {
+        send(res, 400, { "exist" : true });
+      } else {
+        send(res, 200, { "saved" : true });
+      }
+    });
+  } else {
+    send(res, 400, { "fields" : false });
+  }
 };
 
 module.exports.addUser = function(req, res) {
 
   roles(req, res);
 
-  var obj = new User();
+  if(Object.keys(req.query).length >= 13) {
 
-  obj.generateUser(req.query);
+    var obj = new User();
 
-  obj.save(function (err) {
-    if (err) {
-      send(res, 400, { "exist" : true });
-    }
-    send(res, 200, { "saved" : true });
-  });
+    obj.generateUser(req.query);
+
+    obj.save(function (err) {
+      if (err) {
+        send(res, 400, { "exist" : true });
+      } else {
+        send(res, 200, { "saved" : true });
+      }
+    });
+  } else {
+    send(res, 400, { "fields" : false });
+  }
 };
 
 module.exports.update = function(req, res) {

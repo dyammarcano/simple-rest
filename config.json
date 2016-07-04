@@ -19,15 +19,15 @@
     "hide":"-password -salt -__v -created"
   },
   "routes": [
+    "/api/info",
     "/api/login",
     "/api/status",
-    "/api/info",
-    "/api/account/user/:id",
+    "/api/account/user/:id*?",
     "/api/account/users/all",
     "/api/account/user/add",
     "/api/account/user/delete/:id",
     "/api/account/user/suspend/:id",
-    "/api/account/admin/:id",
+    "/api/account/admin/:id*?",
     "/api/account/admins/all",
     "/api/account/admin/add",
     "/api/account/admin/delete/:id",

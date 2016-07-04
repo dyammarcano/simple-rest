@@ -10,10 +10,22 @@ var AccountSchema = new mongoose.Schema({
     type: Number,
     sparse: true
   },
-  first_name: String,
-  second_name: String,
-  first_surname: String,
-  second_surname: String,
+  first_name: {
+    type: String,
+    sparse: true
+  },
+  second_name: {
+    type: String,
+    sparse: true
+  },
+  first_surname: {
+    type: String,
+    sparse: true
+  },
+  second_surname: {
+    type: String,
+    sparse: true
+  },
   password: {
     type: String,
     sparse: true
@@ -29,12 +41,20 @@ var AccountSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true,
-    required : true
+    sparse: true
   },
-  age: Number,
-  phone: String,
-  birth_date: String,
+  age: {
+    type: Number,
+    sparse: true
+  },
+  phone: {
+    type: String,
+    sparse: true
+  },
+  birth_date: {
+    type: String,
+    sparse: true
+  },
   title: {
     type: String,
     required : true
@@ -47,7 +67,10 @@ var AccountSchema = new mongoose.Schema({
     type: Number,
     required : true
   },
-  works_from: String,
+  works_from: {
+    type: String,
+    sparse: true
+  },
   status: { 
     type: String, 
     default: 'active' 
