@@ -5,6 +5,7 @@
 node_modules
 adminMongo
 .git
+.push.sh
 .env
 *.log
 *.out

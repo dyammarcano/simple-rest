@@ -7,7 +7,8 @@ var jwt            = require('jsonwebtoken');
 
 var AccountSchema = new mongoose.Schema({
   role: {
-    type: Number
+    type: Number,
+    sparse: true
   },
   first_name: String,
   second_name: String,
@@ -34,7 +35,10 @@ var AccountSchema = new mongoose.Schema({
   age: Number,
   phone: String,
   birth_date: String,
-  title: String,
+  title: {
+    type: String,
+    required : true
+  },
   department: {
     type: String,
     required : true
@@ -63,20 +67,51 @@ AccountSchema.methods.validPassword = function(raw_password) {
   return this.password === crypto.pbkdf2Sync(raw_password, this.salt, 1000, 64).toString('hex');
 };
 
-AccountSchema.methods.addRole = function(code) {
-  this.role = code;
+AccountSchema.methods.generateUser = function(data) {
+  this.first_name      = data.first_name;
+  this.second_name     = data.second_name;
+  this.first_surname   = data.first_surname;
+  this.second_surname  = data.second_surname;
+  this.identification  = data.identification;
+  this.email           = data.email;
+  this.age             = data.age;
+  this.phone           = data.phone;
+  this.birth_date      = data.birth_date;
+  this.title           = data.title;
+  this.department      = data.department;
+  this.employee_number = data.employee_number;
+  this.works_from      = data.works_from;
+};
+
+AccountSchema.methods.generateAdmin = function(data) {
+  this.role            = data.role;
+  this.first_name      = data.first_name;
+  this.second_name     = data.second_name;
+  this.first_surname   = data.first_surname;
+  this.second_surname  = data.second_surname;
+  this.identification  = data.identification;
+  this.email           = data.email;
+  this.age             = data.age;
+  this.phone           = data.phone;
+  this.birth_date      = data.birth_date;
+  this.title           = data.title;
+  this.department      = data.department;
+  this.employee_number = data.employee_number;
+  this.works_from      = data.works_from;
+  this.salt            = crypto.randomBytes(16).toString('hex');
+  this.password        = crypto.pbkdf2Sync(data.password, this.salt, 1000, 64).toString('hex');
 };
 
 AccountSchema.methods.generateJwt = function() {
   return jwt.sign({
-    id: this._id,
-    email: this.email,
-    first_name: this.first_name,
+    id:            this._id,
+    email:         this.email,
+    first_name:    this.first_name,
     first_surname: this.first_surname,
-    department: this.department,
-    role: this.role,
-    status: this.status,
-    exp: moment().add(7, 'days').valueOf(),
+    department:    this.department,
+    role:          this.role,
+    status:        this.status,
+    exp:           moment().add(7, 'days').valueOf(),
   }, cfg.secret);
 };
 

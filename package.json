@@ -4,31 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "sync": "node sync.js"
+    "start": "node app.js"
   },
-  "author": "",
+  "author": "Dyam Marcano <dyam.marcano@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2",
     "config.json": "0.0.4",
-    "crypt": "0.0.1",
-    "diskusage": "^0.1.5",
     "express": "^4.14.0",
-    "express-ipfilter": "0.0.25",
     "express-jwt": "^3.4.0",
     "express-session": "^1.13.0",
     "js-crc": "^0.1.0",
     "jsonwebtoken": "^7.0.1",
-    "method-override": "^2.3.6",
     "moment": "^2.13.0",
     "mongoose": "^4.5.3",
     "morgan": "^1.7.0",
-    "nexe": "^1.1.2",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "randomstring": "^1.1.5",
-    "request": "^2.72.0",
-    "session-file-store": "^0.2.0"
+    "request": "^2.72.0"
   }
 }
