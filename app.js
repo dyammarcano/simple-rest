@@ -1,11 +1,10 @@
 var express        = require('express');
 var jwt            = require('express-jwt');
-var http           = require('http');
 var morgan         = require('morgan');
+var http           = require('http');
 var routes         = require('./routes'); 
 var cfg            = require('./config'); 
 var local          = require('./routes/local'); 
-var passport       = require('./config/passport');
 var sync           = require('./services/sync');
 
 require('./config/db');
@@ -24,7 +23,6 @@ app.use(function (err, req, res, next) {
 });
 
 app.use(morgan('dev'));
-app.use(passport.initialize());
 app.disable('x-powered-by');
 
 app.use('/system', local);

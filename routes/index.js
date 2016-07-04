@@ -20,32 +20,38 @@ router.get('/info', system.routesInfo);
 // route /api/account/user/:id
 router.get('/account/user/:id*?', user.profile);
 
-// route /api/account/users/all
-router.get('/account/users/all', user.all);
-
-// route /api/account/user/add
-router.get('/account/user/add', user.add);
-
-// route /api/account/user/delete/:id
-router.get('/account/user/delete/:id*?', user.delete);
-
-// route /api/account/user/suspend/:id
-router.get('/account/user/suspend/:id*?', user.suspend);
-
 // route /api/account/admin/:id
 router.get('/account/admin/:id*?', admin.profile);
 
+// route /api/account/users/all
+router.get('/account/users/all', user.all);
+
 // route /api/account/admins/all
-router.get('/account/admins/list', admin.all);
+router.get('/account/admins/all', admin.all);
+
+// route /api/account/user/add
+router.post('/account/user/add', user.add);
 
 // route /api/account/admin/add
-router.get('/account/admin/add', admin.add);
+router.post('/account/admin/add', admin.add);
+
+// route /api/account/user/update/:id
+router.post('/account/user/update/:id', user.update);
+
+// route /api/account/admin/update/:id
+router.post('/account/admin/update/:id', admin.update);
 
 // route /api/account/admin/delete/:id
-router.get('/account/admin/delete/:id*?', admin.delete);
+router.post('/account/admin/delete/:id', admin.delete);
+
+// route /api/account/user/delete/:id
+router.post('/account/user/delete/:id', user.delete);
+
+// route /api/account/user/suspend/:id
+router.post('/account/user/suspend/:id', user.suspend);
 
 // route /api/account/admin/suspend/:id
-router.get('/account/admin/suspend/:id*?', admin.suspend);
+router.post('/account/admin/suspend/:id', admin.suspend);
 
 
 module.exports = router;

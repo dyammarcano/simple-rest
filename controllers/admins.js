@@ -13,7 +13,7 @@ var mamageRoles = function(req) {
   }
 };
 
-// route /api/account/admin/:id
+// route /api/account/admin/:id*?
 module.exports.profile = function(req, res) {
 
   if (req.params.id !== undefined) {
@@ -60,7 +60,20 @@ module.exports.add = function(req, res) {
   });
 };
 
-// route /api/account/admin/delete
+// route /api/account/admin/update/:id
+module.exports.update = function(req, res) {
+
+  mamageRoles();
+
+  User.find({}, cfg.patern.hide, function (err, user) {
+    if (err) {
+      throw err;
+    }
+    sendJSONresponse(res, 200, user);
+  });
+};
+
+// route /api/account/admin/delete/:id
 module.exports.delete = function(req, res) {
 
   mamageRoles();
@@ -73,7 +86,7 @@ module.exports.delete = function(req, res) {
   });
 };
 
-// route /api/account/admin/suspend
+// route /api/account/admin/suspend/:id
 module.exports.suspend = function(req, res) {
 
   mamageRoles();

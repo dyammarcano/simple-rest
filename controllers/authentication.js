@@ -1,4 +1,3 @@
-var passport       = require('../config/passport');
 var User           = require('../models/account');
 
 
