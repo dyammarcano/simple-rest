@@ -76,8 +76,8 @@ var AccountSchema = new mongoose.Schema({
     default: 'active' 
   },
   created: { 
-    type: Date, 
-    default: Date.now() 
+    type: String, 
+    default: moment().format("dddd, MMMM Do YYYY, HH:mm:ss")
   },
 });
 
