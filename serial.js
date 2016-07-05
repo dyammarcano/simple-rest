@@ -16,9 +16,17 @@ var ledr = 21;
 var ledg = 20;
 var ledb = 16;
 
-var pin = ledg;
+var pin = ledb;
 
-wpi.pinMode(pin, wpi.OUTPUT);
+wpi.pinMode(buzz, wpi.OUTPUT);
+wpi.pinMode(ledr, wpi.OUTPUT);
+wpi.pinMode(ledg, wpi.OUTPUT);
+wpi.pinMode(ledb, wpi.OUTPUT);
+
+wpi.digitalWrite(buzz, 0);
+wpi.digitalWrite(ledr, 0);
+wpi.digitalWrite(ledg, 0);
+wpi.digitalWrite(ledb, 0);
 
 var value = 1;
 
