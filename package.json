@@ -18,7 +18,9 @@
     "moment": "^2.13.0",
     "mongoose": "^4.5.3",
     "morgan": "^1.7.0",
+    "primus.io": "^3.2.0",
     "request": "^2.72.0",
-    "socket.io": "^1.4.8"
+    "serialport": "^4.0.0",
+    "wiring-pi": "^2.1.1"
   }
 }

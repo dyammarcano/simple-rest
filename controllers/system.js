@@ -31,6 +31,7 @@ module.exports.login = function(req, res) {
   }
 };
 
+
 module.exports.info = function(req, res) {
   send(res, 200, cfg.routes);
 };

@@ -26,6 +26,10 @@ var AccountSchema = new mongoose.Schema({
     type: String,
     sparse: true
   },
+  gender: {
+    type: String,
+    sparse: true
+  },
   password: {
     type: String,
     sparse: true
@@ -66,6 +70,18 @@ var AccountSchema = new mongoose.Schema({
   employee_number: {
     type: Number,
     required : true
+  },
+  lat: {
+    type: String,
+    sparse: true
+  },
+  lng: {
+    type: String,
+    sparse: true
+  },
+  civil_status: {
+    type: Number,
+    sparse: true
   },
   works_from: {
     type: String,
