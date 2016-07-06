@@ -62,23 +62,24 @@ var famReadyMute = function () {
   wpi.digitalWrite(ledb, 1);
 }
 
-var fingerEnroll = function () {
+var fingerCapture = function () {
   cleanPins();
   wpi.digitalWrite(ledr, 1);
   wpi.digitalWrite(ledg, 1);
 }
 
 var fingerFound = function () {
-  //wpi.digitalWrite(buzz, 1);
-  //sleep.usleep(50 * 1000);
-  //wpi.digitalWrite(buzz, 0);
-  sleep.usleep(100 * 1000);
+  wpi.digitalWrite(buzz, 1);
+  sleep.usleep(50 * 1000);
+  wpi.digitalWrite(buzz, 0);
+  sleep.usleep(1000 * 1000);
 }
 
 var operationState = function (state) {
   cleanPins();
   if (state === 1) {
     fingerFound();
+    //fingerError();
     fingerSuccess();
   }
   if (state === 2) {
@@ -115,7 +116,7 @@ cleanPins();
 famReady();
 famReadyMute();
 //fingerError();
-//fingerEnroll();
+//fingerCapture();
 
 commands = [];
 
