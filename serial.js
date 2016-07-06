@@ -1,7 +1,7 @@
 var SerialPort   = require('serialport');
 var wpi          = require('wiring-pi');
 var sleep        = require('sleep');
-
+var moment       = require('moment');
 
 wpi.setup('gpio');
 
@@ -72,7 +72,7 @@ var fingerFound = function () {
   wpi.digitalWrite(buzz, 1);
   sleep.usleep(50 * 1000);
   wpi.digitalWrite(buzz, 0);
-  sleep.usleep(1000 * 1000);
+  sleep.usleep(1500 * 1000);
 }
 
 var operationState = function (state) {
@@ -82,11 +82,6 @@ var operationState = function (state) {
     //fingerError();
     fingerSuccess();
   }
-  if (state === 2) {
-  }
-  if (state === 3) {
-  }
-
   famReadyMute();
 }
 
@@ -142,7 +137,7 @@ setInterval(function() {
   if (num !== 0 ) {
     operationState(num);
   }
-}, 100);
+}, 50);
 
 setInterval(function() {
   port.write(commands[num]);

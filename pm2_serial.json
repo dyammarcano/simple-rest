@@ -1,9 +1,0 @@
-﻿{
-  "apps": [{
-    "name"       : "SerialPort",
-    "script"     : "./serial.js",
-    "instances"  : "1",
-    "exec_mode"  : "fork",
-    "watch"      : true
-  }]
-}
