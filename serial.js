@@ -1,11 +1,7 @@
 var SerialPort   = require('serialport');
 var wpi          = require('wiring-pi');
-/*var raspi        = require('raspi-io');
-var five         = require('johnny-five');
+var sleep        = require('sleep');
 
-var board = new five.Board({
-  io: new raspi()
-});*/
 
 wpi.setup('gpio');
 
@@ -16,19 +12,82 @@ var ledr = 21;
 var ledg = 20;
 var ledb = 16;
 
-var pin = ledb;
-
 wpi.pinMode(buzz, wpi.OUTPUT);
 wpi.pinMode(ledr, wpi.OUTPUT);
 wpi.pinMode(ledg, wpi.OUTPUT);
 wpi.pinMode(ledb, wpi.OUTPUT);
 
-wpi.digitalWrite(buzz, 0);
-wpi.digitalWrite(ledr, 0);
-wpi.digitalWrite(ledg, 0);
-wpi.digitalWrite(ledb, 0);
+var cleanPins = function () {
+  wpi.digitalWrite(buzz, 0);
+  wpi.digitalWrite(ledr, 0);
+  wpi.digitalWrite(ledg, 0);
+  wpi.digitalWrite(ledb, 0);
+}
 
-var value = 1;
+var fingerError = function () {
+  cleanPins();
+  wpi.digitalWrite(ledr, 1);
+  wpi.digitalWrite(buzz, 1);
+  sleep.usleep(1000 * 1000);
+  wpi.digitalWrite(buzz, 0);
+  wpi.digitalWrite(ledr, 0);
+}
+
+var beepSound = function () {
+  for (var i = 0; i < 3; i++) {
+    wpi.digitalWrite(buzz, 1);
+    sleep.usleep(50 * 1000);
+    wpi.digitalWrite(buzz, 0);
+    sleep.usleep(100 * 1000);
+  };
+}
+
+var fingerSuccess = function () {
+  cleanPins();
+  wpi.digitalWrite(ledg, 1);
+  wpi.digitalWrite(buzz, 1);
+  sleep.usleep(50 * 1000);
+  wpi.digitalWrite(buzz, 0);
+  sleep.usleep(3000 * 1000);
+  wpi.digitalWrite(ledg, 0);
+}
+
+var famReady = function () {
+  cleanPins();
+  wpi.digitalWrite(ledb, 1);
+  beepSound();
+}
+
+var famReadyMute = function () {
+  wpi.digitalWrite(ledb, 1);
+}
+
+var fingerEnroll = function () {
+  cleanPins();
+  wpi.digitalWrite(ledr, 1);
+  wpi.digitalWrite(ledg, 1);
+}
+
+var fingerFound = function () {
+  //wpi.digitalWrite(buzz, 1);
+  //sleep.usleep(50 * 1000);
+  //wpi.digitalWrite(buzz, 0);
+  sleep.usleep(100 * 1000);
+}
+
+var operationState = function (state) {
+  cleanPins();
+  if (state === 1) {
+    fingerFound();
+    fingerSuccess();
+  }
+  if (state === 2) {
+  }
+  if (state === 3) {
+  }
+
+  famReadyMute();
+}
 
 port = new SerialPort('/dev/ttyAMA0', {
   baudRate: 115200,
@@ -51,6 +110,13 @@ port.on('error', function(error) {
   console.log('Serial port error: ' + error);
 });
 
+cleanPins();
+//fingerSuccess();
+famReady();
+famReadyMute();
+//fingerError();
+//fingerEnroll();
+
 commands = [];
 
 commands[0] = new Uint8Array([0x40, 0x4b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8b, 0x0d]); // check        40 4b 00 00 00 00 00 00 00 00 00 8b 0d
@@ -72,9 +138,13 @@ function checkSum(commands) {
 console.log("FAM Fs83 Start %s", checkSum(commands[num]) / 0xff);
 
 setInterval(function() {
+  if (num !== 0 ) {
+    operationState(num);
+  }
+}, 100);
+
+setInterval(function() {
   port.write(commands[num]);
-  wpi.digitalWrite(pin, value);
-  value = +!value;
 }, 500);
 
 buffer = [];
