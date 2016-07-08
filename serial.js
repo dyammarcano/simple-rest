@@ -75,6 +75,8 @@ var fingerFound = function () {
   sleep.usleep(1500 * 1000);
 }
 
+steps = [];
+
 var operationState = function (state) {
   cleanPins();
   if (state === 1) {
@@ -109,7 +111,6 @@ port.on('error', function(error) {
 cleanPins();
 //fingerSuccess();
 famReady();
-famReadyMute();
 //fingerError();
 //fingerCapture();
 
@@ -150,7 +151,7 @@ port.on('data', function(data) {
   console.log(data, num);
 
   if (data[10] == 0x40 || data[10] == 0x49) {
-    console.log(commands[num]);
+    //console.log(commands[num]);
     if (num == 1) {
       num = 2;
     } else {

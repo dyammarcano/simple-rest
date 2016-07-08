@@ -6,7 +6,6 @@ var http           = require('http');
 var routes         = require('./routes'); 
 var cfg            = require('./config'); 
 var local          = require('./routes/local'); 
-var sync           = require('./services/sync');
 var system         = require('./controllers/mod');
 
 
