@@ -2,12 +2,12 @@ var express        = require('express');
 var jwt            = require('express-jwt');
 var morgan         = require('morgan');
 var Primus         = require('primus.io');
-var http           = require('http');
+//var https          = require('https');
 var routes         = require('./routes'); 
 var cfg            = require('./config'); 
+var cert           = require('./config/cert'); 
 var local          = require('./routes/local'); 
 var system         = require('./controllers/mod');
-
 
 require('./config/db');
 
@@ -34,7 +34,11 @@ app.use('/api', routes);
 var port = cfg.port;
 app.set('port', port);
 
-var server = http.createServer(app).listen(port);
+//var server = require('https').createServer(cert, app);
+
+var server = require('http').createServer(app);
+
+server.listen(port);
 
 var primus = new Primus(server, {
 	transformer: 'websockets',

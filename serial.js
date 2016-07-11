@@ -81,8 +81,8 @@ var operationState = function (state) {
   cleanPins();
   if (state === 1) {
     fingerFound();
-    //fingerError();
-    fingerSuccess();
+    fingerError();
+    //fingerSuccess();
   }
   famReadyMute();
 }

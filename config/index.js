@@ -1,3 +1,3 @@
-var cfg            = require('config.json')('../config.json');
+var cfg            = require('../config.json');
 
 module.exports = cfg;
